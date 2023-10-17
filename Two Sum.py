@@ -1,16 +1,21 @@
-def twoSum(nums, target):
-    # Create a hash map to store the complement of each number
-    complement_map = {}
+def isAnagram(s: str, t: str) -> bool:
+    if len(s) != len(t):
+        return False
     
-    for i, num in enumerate(nums):
-        complement = target - num
-        
-        # Check if the complement exists in the map
-        if complement in complement_map:
-            return [complement_map[complement], i]
-        
-        # If the complement doesn't exist, add the current number to the map
-        complement_map[num] = i
+    char_count = {}
     
-    # If no solution is found, return an empty list
-    return []
+    for char in s:
+        if char in char_count:
+            char_count[char] += 1
+        else:
+            char_count[char] = 1
+    
+    for char in t:
+        if char in char_count:
+            char_count[char] -= 1
+            if char_count[char] == 0:
+                del char_count[char]
+        else:
+            return False
+    
+    return len(char_count) == 0
